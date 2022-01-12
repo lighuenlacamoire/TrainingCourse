@@ -7,6 +7,11 @@ const path = {
   DEV: 'https://swapi.dev/',
 };
 
+export const headers = {
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+};
+
 /** * Variables de ambiente */
 export const getEnvPath = () => path.DEV;
 

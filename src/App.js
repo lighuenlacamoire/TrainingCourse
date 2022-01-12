@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import SearchForm from './screens/Employees/SearchForm';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           Learn React
         </a>
       </header>
+        <SearchForm />
     </div>
   );
 }
