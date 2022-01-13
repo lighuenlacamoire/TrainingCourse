@@ -11,3 +11,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.border-gs {
+  text-align:left;
+  border-radius: 8px;
+  border-width: 1px;
+  margin-bottom: 16px;
+  border-style: outset;
+  border-color:darkgray;
+}
+
+.search-controls {
+  margin-right: 8px;
+  height: 45px;
+}
+
+.search-gs { 
+  align-content: flex-start;
+  display:flex
+}
+
+.search-form-gs {
+  margin: 0 16px;
+}
+.card-gs {
+  padding: 16px;
+}
+.card-gs-button {
+  float: right;
+}

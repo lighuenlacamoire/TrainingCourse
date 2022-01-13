@@ -6,11 +6,10 @@ import Card from "./Card";
  * @param {Array} list Lista de empleados
  */
 const CardsList = ({ list }) => {
-  console.log("list", list);
   return (
     <div className="d-flex flex-column align-items-center">
       {list && list.length > 0 ?
-        list.map((item) => <Card item={item} />) : null}
+        list.map((item) => <Card key={item.name} item={item} />) : null}
     </div>
   );
 }

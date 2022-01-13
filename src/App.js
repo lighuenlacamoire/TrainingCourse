@@ -1,10 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 import SearchForm from './screens/Employees/SearchForm';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const App = () => {
+    
   return (
     <div className="App">
+      {/**
+       * 
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -19,7 +23,8 @@ const App = () => {
           Learn React
         </a>
       </header>
-        <SearchForm />
+       */}
+      <SearchForm />
     </div>
   );
 }
