@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Loader from 'react-loader-spinner';
+import { Plane  } from 'react-loader-spinner';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 
-const Monitor = () => {
+const LoadingIndicator = () => {
   /** Dispatch de Redux */
   const { loading, failure } = useSelector((state) => state.status);
   const [activity, setActivity] = useState(loading);
@@ -20,19 +21,19 @@ const Monitor = () => {
     isLoading();
   }, [loading]);
 
-  return (activity && loading ? 
-    <div
-      style={{
-        width: "100%",
-        height: "100",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center"
-      }}
-    >
-      <Loader type="ThreeDots" color="#2BAD60" height="100" width="100" />
-    </div>
-    : null)
+  return (
+    activity ?
+      <div
+        className='loading-overlay'
+      >
+        <div
+          className='loading-container'
+      >
+          <Plane color='#307ecc' arialLabel="loading-indicator" />
+          </div>
+      </div>
+      : null
+  );
 };
 
-export default Monitor;
+export default LoadingIndicator;
