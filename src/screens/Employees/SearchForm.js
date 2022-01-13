@@ -11,6 +11,7 @@ import CardsList from './CardsList';
 import { screens } from '../../constants';
 import { Button } from 'react-bootstrap';
 import { messages } from '../../messages';
+import ModalPopUp from '../../components/ModalPopUp';
 
 /**
  * Componente de formulario de Busqueda
@@ -20,6 +21,8 @@ const SearchForm = () => {
   const dispatch = useDispatch();  
   const { list } = useSelector((state) => state.employees);
   const [data, setData] = useState();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState();
   const [searchText, setSearchText] = useState();
 
   const updateList = (newList) => {
@@ -42,19 +45,32 @@ const SearchForm = () => {
       .finally(() => dispatch(setLoading(screens.employeesListScreen, false)));
   }
 
+  const deleteItem = (item) => {
+    setSelectedItem(item);
+    setShowModal(true);
+  }
 
   /**
    * Elimina el item de la lista de redux
    * @param {Object} item 
    */
-  const deleteItem = (item) => {
-    if (item && item.name) {
-      const newList = [...list];
-      const idx = newList.findIndex((m) => m.name === item.name);
-      if (idx !== -1) {
-        newList.splice(idx, 1);
-        updateList(newList);
+  const removeItem = () => {
+    setShowModal(false);
+    dispatch(setLoading(screens.employeesListScreen, true))
+    try {
+      if (selectedItem && selectedItem.name) {
+        const newList = [...list];
+        const idx = newList.findIndex((m) => m.name === selectedItem.name);
+        if (idx !== -1) {
+          newList.splice(idx, 1);
+          updateList(newList);
+        }
       }
+    } catch (e) {
+
+    } finally {
+      setSelectedItem();
+      dispatch(setLoading(screens.employeesListScreen, false));
     }
   }
 
@@ -107,6 +123,14 @@ const SearchForm = () => {
             : null}
         </Col>
       </Row>
+      <ModalPopUp
+        isVisible={showModal}
+        header="Confirmacion"
+        content="Esta seguro que desea continuar?"
+        onBackdropPress={() => setShowModal(false)}
+        onPressSecondary={() => setShowModal(false)}
+        onPressPrimary={() => removeItem()}
+      />
     </div>
   );
 }

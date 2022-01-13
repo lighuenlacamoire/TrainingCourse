@@ -8,6 +8,11 @@ import { employeeMessages, messages } from '../../messages';
  * @param {Function} onDelete Elimina un item de la lista
  */
 const Card = ({ item, onDelete }) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onDelete(item);
+  }
+
   return (
     <Row className="d-inline-flex card-gs border-gs">
       <Col>
@@ -25,7 +30,7 @@ const Card = ({ item, onDelete }) => {
         <Button
           className="card-gs-button border-gs search-controls"
           variant="primary"
-          onClick={() => onDelete(item)}
+          onClick={handleSubmit}
         >
           {messages.delete}
         </Button>
