@@ -11,3 +11,55 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.border-gs {
+  text-align:left;
+  border-radius: 8px;
+  border-width: 2px;
+  margin-bottom: 16px;
+  border-style: outset;
+  border-color:#307ecc;
+}
+
+.search-controls {
+  margin-right: 8px;
+  height: 45px;
+}
+
+.search-gs { 
+  align-content: flex-start;
+  display:flex
+}
+
+.search-form-gs {
+  margin: 0 32px;
+}
+.card-gs {
+  padding: 16px;
+}
+.card-gs-button {
+  float: right;
+}
+.loading-overlay {
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+.loading-container {
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.scroll-form {
+  height: 400px;
+  min-height: 400px;
+  max-height: 400px;
+  padding: 0px 16px;
+  overflow-y: scroll;
+}
