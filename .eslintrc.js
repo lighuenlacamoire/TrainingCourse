@@ -1,53 +1,27 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
   env: {
     browser: true,
-    commonjs: true,
-    es6: true,
-    node: true,
-    mocha: true,
+    es2021: true,
   },
-  plugins: ['@typescript-eslint'],
   extends: [
+    'plugin:react/recommended',
     'airbnb',
-    'prettier',
-    'plugin:prettier/recommended',
-    'plugin:@typescript-eslint/recommended',
   ],
-  globals: {
-    $: true,
-    $$: true,
-    browser: true,
-    driver: true,
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-  },
   parserOptions: {
-    ecmaVersion: 2018,
-  },
-  settings: {
-    'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
-    'import/resolver': {
-      typescript: {
-        project: './tsconfig.json',
-      },
-      node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      },
+    ecmaFeatures: {
+      jsx: true,
     },
+    ecmaVersion: 13,
+    sourceType: 'module',
   },
-  ignorePatterns: [
-    '/__mocks__/*',
-    '/__e2e__/*',
-    '/jest-setup.js',
-    '/docs/*',
-    '/coverage/*',
-    '/metro.config.js',
+  plugins: [
+    'react',
+    'prettier',
   ],
   rules: {
+    'linebreak-style': 0,
     'global-require': 0,
     'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': ['off'],
     'react/jsx-filename-extension': [
       1,
       {

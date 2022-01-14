@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { employeesListRequest } from '../../services/employees';
 import { useDispatch, useSelector } from 'react-redux';
+import { employeesListRequest } from '../../services/employees';
 import { setLoading } from '../../redux/actions/status';
 import { employeesSetList } from '../../redux/actions/employees';
 import Col from 'react-bootstrap/Col';
@@ -40,6 +40,7 @@ const SearchForm = () => {
       })
       .catch((error) => {
         setData();
+        alert("Fallo: "+error);
         console.log(error);
       })
       .finally(() => dispatch(setLoading(screens.employeesListScreen, false)));
