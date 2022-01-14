@@ -1,15 +1,14 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import { employeesListRequest } from '../../services/employees';
 import { setLoading } from '../../redux/actions/status';
 import { employeesSetList } from '../../redux/actions/employees';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Form from 'react-bootstrap/Form';
 import CardsList from './CardsList';
 import { screens } from '../../constants';
-import { Button } from 'react-bootstrap';
 import { messages } from '../../messages';
 import ModalPopUp from '../../components/ModalPopUp';
 
@@ -19,19 +18,48 @@ import ModalPopUp from '../../components/ModalPopUp';
 const SearchForm = () => {
   /** Dispatch de Redux */
   const dispatch = useDispatch();  
+  /** Lista de redux */
   const { list } = useSelector((state) => state.employees);
+  /** Lista de redux filtrada */
+  const [filteredList, setFilteredList] = useState([]);
+  /** Datos del Api */
   const [data, setData] = useState();
   const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState();
   const [searchText, setSearchText] = useState();
 
+  /**
+   * Actualiza la lista de redux
+   * @param {Array} newList 
+   */
   const updateList = (newList) => {
     dispatch(employeesSetList(newList));
   }
 
-  const searchList = () => {
+  const updateFilteredList = (text) => {
+    const value = text || searchText;
+    const listNew = [...(list || [])];
+    let listFiltered;
+    if (value && value.length > 0) {
+      listFiltered = listNew.filter((item) =>
+        item.name
+          .toLocaleLowerCase()
+          .replace(/[\u0300-\u036f]/g, '')
+          .includes(value.toLowerCase()),
+      );
+      setFilteredList(listFiltered);
+    } else {
+      setFilteredList(list);
+    }
+  }
+
+  /**
+   * Api Call: consulta de registro
+   * @param {string} params 
+   */
+  const searchList = (params) => {
     dispatch(setLoading(screens.employeesListScreen, true));
-    employeesListRequest()
+    employeesListRequest(params)
       .then(async (response) => {
         if (response && response.results) {
           updateList(response.results);
@@ -40,12 +68,16 @@ const SearchForm = () => {
       })
       .catch((error) => {
         setData();
-        alert("Fallo: "+error);
+        alert(`Fallo: ${error}`);
         console.log(error);
       })
       .finally(() => dispatch(setLoading(screens.employeesListScreen, false)));
   }
 
+  /**
+   * Pop del modal para verificar la eliminacion del item
+   * @param {Object} item 
+   */
   const deleteItem = (item) => {
     setSelectedItem(item);
     setShowModal(true);
@@ -68,12 +100,16 @@ const SearchForm = () => {
         }
       }
     } catch (e) {
-
+      console.log(e);
     } finally {
       setSelectedItem();
       dispatch(setLoading(screens.employeesListScreen, false));
     }
   }
+
+  useEffect(() => {
+    updateFilteredList();
+  }, [JSON.stringify(list)]);
 
   useEffect(() => {
     searchList();
@@ -98,7 +134,7 @@ const SearchForm = () => {
           <Button
             className="border-gs search-controls"
             variant="primary"
-            onClick={() => console.log()}
+            onClick={() => updateFilteredList()}
             block
           >
             {messages.search}
@@ -111,16 +147,16 @@ const SearchForm = () => {
             onClick={() => searchList()}
             block
           >
-            {"Actualizar"}
+            Actualizar
           </Button>
         </Col>
       </Row>
       <Row>
-        <Col className='search-form-gs'>
+        <Col>
           {list && list.length > 0 ?
             <CardsList
               onDelete={deleteItem}
-              list={list} />
+              list={filteredList} />
             : null}
         </Col>
       </Row>

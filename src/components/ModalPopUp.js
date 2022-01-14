@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { generics as genericsMessages, messages } from '../messages';
+import { messages } from '../messages';
 
 /**
  * Modal generico

@@ -5,7 +5,6 @@ import Employees from './screens/Employees';
 import './App.css';
 
 const App = () => {
-
   return (
     <BrowserRouter>
       <Routes>

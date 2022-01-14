@@ -8,7 +8,8 @@ import Card from "./Card";
  */
 const CardsList = ({ list, onDelete }) => {
   return (
-    <div className="d-flex flex-column">
+    <div
+      className="d-flex flex-column scroll-form">
       {list && list.length > 0 ?
         list.map((item) =>
           <Card

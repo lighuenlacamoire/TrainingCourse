@@ -32,7 +32,7 @@ code {
 }
 
 .search-form-gs {
-  margin: 0 16px;
+  margin: 0 32px;
 }
 .card-gs {
   padding: 16px;
@@ -55,4 +55,9 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.scroll-form {
+  max-height: 400px;
+  padding: 0px 16px;
+  overflow-y: scroll;
 }
