@@ -11,6 +11,7 @@ import CardsList from './CardsList';
 import { screens } from '../../constants';
 import { messages } from '../../messages';
 import ModalPopUp from '../../components/ModalPopUp';
+import Pager from '../../components/Pager';
 
 /**
  * Componente de formulario de Busqueda
@@ -36,6 +37,10 @@ const SearchForm = () => {
     dispatch(employeesSetList(newList));
   }
 
+  /**
+   * Actualiza la lista filtrada segun la lista que se este utilizando en redux
+   * @param {string} text 
+   */
   const updateFilteredList = (text) => {
     const value = text || searchText;
     const listNew = [...(list || [])];
@@ -107,6 +112,13 @@ const SearchForm = () => {
     }
   }
 
+  const trimPage = (params) => {
+    if (params) {
+      return params.split('=')[1];
+    }
+    return null
+  }
+
   useEffect(() => {
     updateFilteredList();
   }, [JSON.stringify(list)]);
@@ -147,13 +159,24 @@ const SearchForm = () => {
             onClick={() => searchList()}
             block
           >
-            Actualizar
+            Reiniciar
           </Button>
+        </Col>
+        <Col>
+            <Col>
+              <span>{`Total: ${data?.count || 0}`}</span>
+              </Col>
+            <Col>
+            <span>{`Lista actual: ${list?.length || 0}`}</span>
+            </Col>
+            <Col>
+        <span>{`Filtrados: ${filteredList?.length || 0}`}</span>
+        </Col>
         </Col>
       </Row>
       <Row>
         <Col>
-          {list && list.length > 0 ?
+          {filteredList && filteredList.length > 0 ?
             <CardsList
               onDelete={deleteItem}
               list={filteredList} />
@@ -167,6 +190,21 @@ const SearchForm = () => {
         onBackdropPress={() => setShowModal(false)}
         onPressSecondary={() => setShowModal(false)}
         onPressPrimary={() => removeItem()}
+      />
+      <Pager
+        total={data?.count}
+        onPageFirst={
+          data?.previous ?
+            () => searchList()
+            : null}
+        onPagePrevious={
+          data?.previous ?
+            () => searchList(trimPage(data?.previous))
+            : null}
+        onPageNext={
+          data?.next ?
+            () => searchList(trimPage(data?.next))
+            : null}
       />
     </div>
   );

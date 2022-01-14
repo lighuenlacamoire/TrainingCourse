@@ -57,6 +57,8 @@ code {
   justify-content: center;
 }
 .scroll-form {
+  height: 400px;
+  min-height: 400px;
   max-height: 400px;
   padding: 0px 16px;
   overflow-y: scroll;

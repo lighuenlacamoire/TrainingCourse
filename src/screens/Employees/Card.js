@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Button, Col } from 'react-bootstrap';
 import { employeeMessages, messages } from '../../messages';
+import { formatDateString } from '../../utils/formatters';
 
 /**
  * componente de tarjeta con los datos del empleado
@@ -24,6 +25,9 @@ const Card = ({ item, onDelete }) => {
         </Row>
         <Row>
           <span>{`${employeeMessages.gender}: ${item.gender}`}</span>
+        </Row>
+        <Row>
+          <span>{`${employeeMessages.created}:  ${formatDateString(item.created)}`}</span>
         </Row>
       </Col>
       <Col>

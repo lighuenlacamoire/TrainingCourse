@@ -9,8 +9,9 @@ const messages = {
 }
 
 const employeeMessages = {
-  height: 'Height',
-  gender: 'Gender',
+  height: 'Altura',
+  gender: 'Genero',
+  created: 'Fecha de creación',
 }
 
 export { 
